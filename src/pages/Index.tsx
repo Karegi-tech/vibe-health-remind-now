@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { DashboardHeader } from '@/components/DashboardHeader';
 import { PatientCard } from '@/components/PatientCard';
@@ -16,7 +15,7 @@ const Index = () => {
       condition: 'Diabetes Follow-up',
       lastVisit: '2024-05-15',
       nextAppointment: '2024-05-30',
-      riskLevel: 'medium',
+      riskLevel: 'medium' as const,
       reminderSent: true,
       preferredChannel: 'whatsapp'
     },
@@ -26,7 +25,7 @@ const Index = () => {
       condition: 'Post-Surgery Check',
       lastVisit: '2024-05-10',
       nextAppointment: '2024-05-28',
-      riskLevel: 'high',
+      riskLevel: 'high' as const,
       reminderSent: false,
       preferredChannel: 'sms'
     },
@@ -36,7 +35,7 @@ const Index = () => {
       condition: 'Hypertension Monitoring',
       lastVisit: '2024-05-20',
       nextAppointment: '2024-06-05',
-      riskLevel: 'low',
+      riskLevel: 'low' as const,
       reminderSent: true,
       preferredChannel: 'email'
     }
