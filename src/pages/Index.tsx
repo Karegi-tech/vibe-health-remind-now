@@ -1,17 +1,40 @@
+
 import { useState } from 'react';
 import { DashboardHeader } from '@/components/DashboardHeader';
 import { PatientCard } from '@/components/PatientCard';
 import { ReminderPanel } from '@/components/ReminderPanel';
 import { PredictionInsights } from '@/components/PredictionInsights';
 import { NotificationSettings } from '@/components/NotificationSettings';
+import { LoginScreen } from '@/components/LoginScreen';
+import { ReminderSystem } from '@/components/ReminderSystem';
+import { PatientTracking } from '@/components/PatientTracking';
+import { Button } from '@/components/ui/button';
+import { LogOut } from 'lucide-react';
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
+  const [user, setUser] = useState<any>(null);
+  const [userType, setUserType] = useState<'doctor' | 'patient'>('doctor');
+
+  const handleLogin = (type: 'doctor' | 'patient', userData: any) => {
+    setUserType(type);
+    setUser(userData);
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+    setUserType('doctor');
+    setActiveTab('dashboard');
+  };
+
+  if (!user) {
+    return <LoginScreen onLogin={handleLogin} />;
+  }
 
   const mockPatients = [
     {
       id: 1,
-      name: 'Sarah Johnson',
+      name: 'Grace Njeri',
       condition: 'Diabetes Follow-up',
       lastVisit: '2024-05-15',
       nextAppointment: '2024-05-30',
@@ -21,7 +44,7 @@ const Index = () => {
     },
     {
       id: 2,
-      name: 'Michael Chen',
+      name: 'David Mwangi',
       condition: 'Post-Surgery Check',
       lastVisit: '2024-05-10',
       nextAppointment: '2024-05-28',
@@ -31,7 +54,7 @@ const Index = () => {
     },
     {
       id: 3,
-      name: 'Emily Rodriguez',
+      name: 'Mary Akinyi',
       condition: 'Hypertension Monitoring',
       lastVisit: '2024-05-20',
       nextAppointment: '2024-06-05',
@@ -46,29 +69,56 @@ const Index = () => {
       <DashboardHeader activeTab={activeTab} setActiveTab={setActiveTab} />
       
       <main className="container mx-auto px-4 py-8">
+        <div className="flex justify-between items-center mb-6">
+          <div>
+            <h1 className="text-2xl font-bold text-gray-800">
+              Welcome, {user.name}
+            </h1>
+            <p className="text-gray-600">
+              {userType === 'doctor' ? 'Doctor Dashboard' : 'Patient Portal'}
+            </p>
+          </div>
+          <Button onClick={handleLogout} variant="outline">
+            <LogOut className="w-4 h-4 mr-2" />
+            Logout
+          </Button>
+        </div>
+
         {activeTab === 'dashboard' && (
           <div className="space-y-8">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              <div className="lg:col-span-2 space-y-6">
-                <div className="bg-white rounded-xl shadow-lg p-6">
-                  <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-                    <div className="w-3 h-8 bg-gradient-to-b from-blue-500 to-green-500 rounded-full mr-3"></div>
-                    Patient Follow-Up Dashboard
-                  </h2>
-                  <div className="grid gap-4">
-                    {mockPatients.map((patient) => (
-                      <PatientCard key={patient.id} patient={patient} />
-                    ))}
+            {userType === 'doctor' ? (
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div className="lg:col-span-2 space-y-6">
+                  <div className="bg-white rounded-xl shadow-lg p-6">
+                    <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                      <div className="w-3 h-8 bg-gradient-to-b from-blue-500 to-green-500 rounded-full mr-3"></div>
+                      Patient Follow-Up Dashboard
+                    </h2>
+                    <div className="grid gap-4">
+                      {mockPatients.map((patient) => (
+                        <PatientCard key={patient.id} patient={patient} />
+                      ))}
+                    </div>
                   </div>
                 </div>
+                
+                <div className="space-y-6">
+                  <ReminderPanel />
+                  <PredictionInsights />
+                </div>
               </div>
-              
-              <div className="space-y-6">
-                <ReminderPanel />
-                <PredictionInsights />
-              </div>
-            </div>
+            ) : (
+              <PatientTracking />
+            )}
           </div>
+        )}
+
+        {activeTab === 'reminders' && (
+          <ReminderSystem userType={userType} />
+        )}
+
+        {activeTab === 'tracking' && (
+          <PatientTracking />
         )}
 
         {activeTab === 'settings' && (

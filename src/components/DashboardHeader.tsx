@@ -1,5 +1,5 @@
 
-import { Bell, Settings, Calendar, Brain } from 'lucide-react';
+import { Bell, Settings, Calendar, Brain, MessageCircle, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 interface DashboardHeaderProps {
@@ -30,6 +30,22 @@ export const DashboardHeader = ({ activeTab, setActiveTab }: DashboardHeaderProp
             >
               <Calendar className="w-4 h-4" />
               <span>Dashboard</span>
+            </Button>
+            <Button
+              variant={activeTab === 'reminders' ? 'default' : 'ghost'}
+              onClick={() => setActiveTab('reminders')}
+              className="flex items-center space-x-2"
+            >
+              <MessageCircle className="w-4 h-4" />
+              <span>Reminders</span>
+            </Button>
+            <Button
+              variant={activeTab === 'tracking' ? 'default' : 'ghost'}
+              onClick={() => setActiveTab('tracking')}
+              className="flex items-center space-x-2"
+            >
+              <User className="w-4 h-4" />
+              <span>Tracking</span>
             </Button>
             <Button
               variant={activeTab === 'predictions' ? 'default' : 'ghost'}
