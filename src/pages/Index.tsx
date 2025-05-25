@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { DashboardHeader } from '@/components/DashboardHeader';
 import { PatientCard } from '@/components/PatientCard';
@@ -9,7 +8,7 @@ import { LoginScreen } from '@/components/LoginScreen';
 import { ReminderSystem } from '@/components/ReminderSystem';
 import { PatientTracking } from '@/components/PatientTracking';
 import { Button } from '@/components/ui/button';
-import { LogOut } from 'lucide-react';
+import { LogOut, Heart, Users, Brain, MessageCircle } from 'lucide-react';
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -28,7 +27,72 @@ const Index = () => {
   };
 
   if (!user) {
-    return <LoginScreen onLogin={handleLogin} />;
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50">
+        {/* Hero Section */}
+        <div className="relative overflow-hidden">
+          <div className="container mx-auto px-4 py-16">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div className="space-y-8">
+                <div className="space-y-4">
+                  <h1 className="text-4xl md:text-6xl font-bold text-gray-800 leading-tight">
+                    Smart Healthcare
+                    <span className="text-gradient bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent"> Follow-Up</span>
+                  </h1>
+                  <p className="text-xl text-gray-600 leading-relaxed">
+                    Link2Care revolutionizes patient follow-up with AI-powered reminders, 
+                    intelligent tracking, and seamless communication between doctors and patients.
+                  </p>
+                </div>
+                
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                      <MessageCircle className="w-5 h-5 text-blue-600" />
+                    </div>
+                    <span className="text-gray-700 font-medium">Smart Reminders</span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                      <Brain className="w-5 h-5 text-green-600" />
+                    </div>
+                    <span className="text-gray-700 font-medium">AI Insights</span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                      <Users className="w-5 h-5 text-purple-600" />
+                    </div>
+                    <span className="text-gray-700 font-medium">Patient Tracking</span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <div className="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
+                      <Heart className="w-5 h-5 text-red-600" />
+                    </div>
+                    <span className="text-gray-700 font-medium">Better Outcomes</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="relative">
+                <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+                  <img 
+                    src="https://images.pexels.com/photos/581091226825-a6a2a5aee158/pexels-photo-581091226825-a6a2a5aee158.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                    alt="Healthcare professional using technology for patient care"
+                    className="w-full h-96 object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-blue-900/20 to-transparent"></div>
+                </div>
+                <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-gradient-to-r from-blue-600 to-green-600 rounded-full flex items-center justify-center shadow-lg">
+                  <Heart className="w-12 h-12 text-white" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <LoginScreen onLogin={handleLogin} />
+      </div>
+    );
   }
 
   const allPatients = [
