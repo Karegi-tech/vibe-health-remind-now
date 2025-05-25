@@ -30,7 +30,7 @@ export const LoginScreen = ({ onLogin }: LoginScreenProps) => {
       id: 1,
       name: userType === 'doctor' ? 'Dr. Sarah Wanjiku' : 'James Kiprotich',
       type: userType,
-      email: userType === 'doctor' ? 'swanjiku@healthconnect.ke' : 'jkiprotich@gmail.com'
+      email: userType === 'doctor' ? 'swanjiku@link2care.ke' : 'jkiprotich@gmail.com'
     };
 
     toast({
@@ -48,7 +48,7 @@ export const LoginScreen = ({ onLogin }: LoginScreenProps) => {
           <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
             <Stethoscope className="w-8 h-8 text-white" />
           </div>
-          <h1 className="text-2xl font-bold text-gray-800">HealthConnect AI</h1>
+          <h1 className="text-2xl font-bold text-gray-800">Link2Care</h1>
           <p className="text-gray-600">Smart Follow-Up System</p>
         </div>
 

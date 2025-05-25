@@ -35,6 +35,7 @@ const Index = () => {
     {
       id: 1,
       name: 'Grace Njeri',
+      phone: '0716283502',
       condition: 'Diabetes Follow-up',
       lastVisit: '2024-05-15',
       nextAppointment: '2024-05-30',
@@ -45,6 +46,7 @@ const Index = () => {
     {
       id: 2,
       name: 'David Mwangi',
+      phone: '0708403670',
       condition: 'Post-Surgery Check',
       lastVisit: '2024-05-10',
       nextAppointment: '2024-05-28',

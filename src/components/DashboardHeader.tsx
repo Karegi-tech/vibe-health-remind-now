@@ -17,7 +17,7 @@ export const DashboardHeader = ({ activeTab, setActiveTab }: DashboardHeaderProp
               <Calendar className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-gray-800">HealthConnect AI</h1>
+              <h1 className="text-xl font-bold text-gray-800">Link2Care</h1>
               <p className="text-sm text-gray-600">Smart Follow-Up System</p>
             </div>
           </div>
