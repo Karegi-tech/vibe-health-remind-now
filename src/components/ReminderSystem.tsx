@@ -8,9 +8,10 @@ import { useToast } from '@/hooks/use-toast';
 
 interface ReminderSystemProps {
   userType: 'doctor' | 'patient';
+  currentUser?: any;
 }
 
-export const ReminderSystem = ({ userType }: ReminderSystemProps) => {
+export const ReminderSystem = ({ userType, currentUser }: ReminderSystemProps) => {
   const { toast } = useToast();
   const [selectedChannels, setSelectedChannels] = useState<string[]>(['whatsapp']);
 
@@ -20,7 +21,7 @@ export const ReminderSystem = ({ userType }: ReminderSystemProps) => {
       name: 'WhatsApp',
       icon: MessageCircle,
       color: 'bg-green-500',
-      href: 'https://wa.me/254700123456?text=Hello%2C%20this%20is%20your%20appointment%20reminder',
+      href: 'https://web.whatsapp.com/',
       active: true
     },
     {
@@ -28,7 +29,7 @@ export const ReminderSystem = ({ userType }: ReminderSystemProps) => {
       name: 'SMS',
       icon: Phone,
       color: 'bg-blue-500',
-      href: 'sms:+254700123456?body=Appointment%20reminder%20from%20HealthConnect',
+      href: 'sms:',
       active: true
     },
     {
@@ -36,7 +37,7 @@ export const ReminderSystem = ({ userType }: ReminderSystemProps) => {
       name: 'Email',
       icon: Mail,
       color: 'bg-purple-500',
-      href: 'mailto:patient@example.com?subject=Appointment%20Reminder&body=Dear%20patient%2C%20this%20is%20a%20reminder',
+      href: 'https://mail.google.com/',
       active: false
     },
     {
@@ -44,12 +45,12 @@ export const ReminderSystem = ({ userType }: ReminderSystemProps) => {
       name: 'Voice Call',
       icon: Phone,
       color: 'bg-orange-500',
-      href: 'tel:+254700123456',
+      href: 'tel:',
       active: false
     }
   ];
 
-  const upcomingReminders = [
+  const allReminders = [
     {
       id: 1,
       patient: 'Grace Njeri',
@@ -76,17 +77,48 @@ export const ReminderSystem = ({ userType }: ReminderSystemProps) => {
       channels: ['email', 'sms'],
       status: 'confirmed',
       priority: 'low'
+    },
+    {
+      id: 4,
+      patient: 'James Kiprotich',
+      appointment: '2024-06-02 11:00 AM',
+      condition: 'General Checkup',
+      channels: ['whatsapp'],
+      status: 'scheduled',
+      priority: 'low'
     }
   ];
 
+  const upcomingReminders = userType === 'doctor' 
+    ? allReminders 
+    : allReminders.filter(reminder => reminder.patient === currentUser?.name);
+
   const sendReminder = (channel: any, patient: string) => {
-    if (channel.href.startsWith('http') || channel.href.startsWith('sms:') || channel.href.startsWith('mailto:') || channel.href.startsWith('tel:')) {
+    if (channel.href.startsWith('http')) {
       window.open(channel.href, '_blank');
+    } else if (channel.href.startsWith('sms:') || channel.href.startsWith('tel:')) {
+      window.open(channel.href, '_self');
     }
     
     toast({
       title: "Reminder Sent",
       description: `${channel.name} reminder sent to ${patient}`,
+    });
+  };
+
+  const sendBulkReminders = () => {
+    selectedChannels.forEach(channelId => {
+      const channel = reminderChannels.find(c => c.id === channelId);
+      if (channel) {
+        if (channel.href.startsWith('http')) {
+          window.open(channel.href, '_blank');
+        }
+      }
+    });
+    
+    toast({
+      title: "Bulk Reminders Sent",
+      description: `Reminders sent via ${selectedChannels.length} channels`,
     });
   };
 
@@ -114,6 +146,14 @@ export const ReminderSystem = ({ userType }: ReminderSystemProps) => {
       case 'low': return 'bg-green-100 text-green-800';
       default: return 'bg-gray-100 text-gray-800';
     }
+  };
+
+  const handleReschedule = (reminderId: number) => {
+    toast({
+      title: "Rescheduling",
+      description: "Opening calendar to reschedule appointment...",
+    });
+    // In a real app, this would open a calendar interface
   };
 
   return (
@@ -146,17 +186,14 @@ export const ReminderSystem = ({ userType }: ReminderSystemProps) => {
           ))}
         </div>
 
-        <Button
-          onClick={() => {
-            selectedChannels.forEach(channelId => {
-              const channel = reminderChannels.find(c => c.id === channelId);
-              if (channel) sendReminder(channel, 'All Patients');
-            });
-          }}
-          className="w-full bg-gradient-to-r from-blue-600 to-green-600 hover:from-blue-700 hover:to-green-700"
-        >
-          Send Bulk Reminders ({selectedChannels.length} channels)
-        </Button>
+        {userType === 'doctor' && (
+          <Button
+            onClick={sendBulkReminders}
+            className="w-full bg-gradient-to-r from-blue-600 to-green-600 hover:from-blue-700 hover:to-green-700"
+          >
+            Send Bulk Reminders ({selectedChannels.length} channels)
+          </Button>
+        )}
       </Card>
 
       <Card className="p-6">
@@ -199,6 +236,14 @@ export const ReminderSystem = ({ userType }: ReminderSystemProps) => {
                       </Button>
                     ) : null;
                   })}
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => handleReschedule(reminder.id)}
+                    className="text-xs"
+                  >
+                    Reschedule
+                  </Button>
                 </div>
                 <span className="text-xs text-gray-500 capitalize">{reminder.status}</span>
               </div>

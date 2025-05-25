@@ -31,7 +31,7 @@ const Index = () => {
     return <LoginScreen onLogin={handleLogin} />;
   }
 
-  const mockPatients = [
+  const allPatients = [
     {
       id: 1,
       name: 'Grace Njeri',
@@ -57,14 +57,31 @@ const Index = () => {
     {
       id: 3,
       name: 'Mary Akinyi',
+      phone: '0799641327',
       condition: 'Hypertension Monitoring',
       lastVisit: '2024-05-20',
       nextAppointment: '2024-06-05',
       riskLevel: 'low' as const,
       reminderSent: true,
       preferredChannel: 'email'
+    },
+    {
+      id: 4,
+      name: 'James Kiprotich',
+      phone: '0722555444',
+      condition: 'General Checkup',
+      lastVisit: '2024-05-18',
+      nextAppointment: '2024-06-02',
+      riskLevel: 'low' as const,
+      reminderSent: false,
+      preferredChannel: 'whatsapp'
     }
   ];
+
+  // Filter patients based on user type
+  const displayPatients = userType === 'doctor' 
+    ? allPatients 
+    : allPatients.filter(patient => patient.name === user.name);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50">
@@ -97,7 +114,7 @@ const Index = () => {
                       Patient Follow-Up Dashboard
                     </h2>
                     <div className="grid gap-4">
-                      {mockPatients.map((patient) => (
+                      {displayPatients.map((patient) => (
                         <PatientCard key={patient.id} patient={patient} />
                       ))}
                     </div>
@@ -110,17 +127,21 @@ const Index = () => {
                 </div>
               </div>
             ) : (
-              <PatientTracking />
+              <PatientTracking userType={userType} currentUser={user} />
             )}
           </div>
         )}
 
         {activeTab === 'reminders' && (
-          <ReminderSystem userType={userType} />
+          <ReminderSystem userType={userType} currentUser={user} />
         )}
 
         {activeTab === 'tracking' && (
-          <PatientTracking />
+          <PatientTracking userType={userType} currentUser={user} />
+        )}
+
+        {activeTab === 'predictions' && (
+          <PredictionInsights />
         )}
 
         {activeTab === 'settings' && (

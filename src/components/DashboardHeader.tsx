@@ -1,6 +1,8 @@
 
 import { Bell, Settings, Calendar, Brain, MessageCircle, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useToast } from '@/hooks/use-toast';
+import { useState } from 'react';
 
 interface DashboardHeaderProps {
   activeTab: string;
@@ -8,6 +10,20 @@ interface DashboardHeaderProps {
 }
 
 export const DashboardHeader = ({ activeTab, setActiveTab }: DashboardHeaderProps) => {
+  const { toast } = useToast();
+  const [notifications] = useState([
+    { id: 1, message: "Grace Njeri confirmed appointment", time: "5 min ago", type: "success" },
+    { id: 2, message: "David Mwangi needs follow-up", time: "15 min ago", type: "warning" },
+    { id: 3, message: "New patient registration", time: "1 hour ago", type: "info" }
+  ]);
+
+  const handleNotificationClick = () => {
+    toast({
+      title: "Notifications",
+      description: `You have ${notifications.length} new notifications`,
+    });
+  };
+
   return (
     <header className="bg-white shadow-lg border-b border-gray-100">
       <div className="container mx-auto px-4">
@@ -66,8 +82,8 @@ export const DashboardHeader = ({ activeTab, setActiveTab }: DashboardHeaderProp
           </nav>
 
           <div className="flex items-center space-x-3">
-            <div className="relative">
-              <Bell className="w-6 h-6 text-gray-600 hover:text-blue-600 cursor-pointer transition-colors" />
+            <div className="relative cursor-pointer" onClick={handleNotificationClick}>
+              <Bell className="w-6 h-6 text-gray-600 hover:text-blue-600 transition-colors" />
               <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></div>
             </div>
             <div className="w-8 h-8 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full flex items-center justify-center">
