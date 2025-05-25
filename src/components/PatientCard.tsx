@@ -3,6 +3,17 @@ import { Phone, MessageCircle, Calendar, Clock, User, AlertTriangle } from 'luci
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
+import { useState } from 'react';
+import { PatientMedicalHistory } from './PatientMedicalHistory';
+
+interface MedicalHistory {
+  id: number;
+  date: string;
+  type: string;
+  description: string;
+  doctor: string;
+  status: 'completed' | 'ongoing' | 'follow-up';
+}
 
 interface Patient {
   id: number;
@@ -14,6 +25,12 @@ interface Patient {
   riskLevel: 'low' | 'medium' | 'high';
   reminderSent: boolean;
   preferredChannel: string;
+  age: number;
+  location: string;
+  bloodType: string;
+  allergies: string[];
+  medications: string[];
+  medicalHistory: MedicalHistory[];
 }
 
 interface PatientCardProps {
@@ -22,6 +39,7 @@ interface PatientCardProps {
 
 export const PatientCard = ({ patient }: PatientCardProps) => {
   const { toast } = useToast();
+  const [showMedicalHistory, setShowMedicalHistory] = useState(false);
 
   const getRiskColor = (risk: string) => {
     switch (risk) {
@@ -82,68 +100,83 @@ export const PatientCard = ({ patient }: PatientCardProps) => {
     }
   };
 
-  return (
-    <div className="bg-gradient-to-r from-white to-gray-50 rounded-lg border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
-      <div className="flex items-start justify-between">
-        <div className="flex items-start space-x-4">
-          <div className="w-12 h-12 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full flex items-center justify-center">
-            <User className="w-6 h-6 text-white" />
-          </div>
-          
-          <div className="flex-1">
-            <div className="flex items-center space-x-3 mb-2">
-              <h3 className="text-lg font-semibold text-gray-800">{patient.name}</h3>
-              <Badge className={`text-xs ${getRiskColor(patient.riskLevel)}`}>
-                {patient.riskLevel} risk
-              </Badge>
-            </div>
-            
-            <p className="text-gray-600 mb-1">{patient.condition}</p>
-            {patient.phone && (
-              <p className="text-gray-500 text-sm mb-3">📞 {patient.phone}</p>
-            )}
-            
-            <div className="grid grid-cols-2 gap-4 text-sm">
-              <div className="flex items-center space-x-2">
-                <Calendar className="w-4 h-4 text-gray-400" />
-                <span className="text-gray-600">Last visit: {patient.lastVisit}</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Clock className="w-4 h-4 text-gray-400" />
-                <span className="text-gray-600">Next: {patient.nextAppointment}</span>
-              </div>
-            </div>
-          </div>
-        </div>
+  const handleProfileClick = () => {
+    setShowMedicalHistory(true);
+  };
 
-        <div className="flex flex-col items-end space-y-3">
-          <div className="flex items-center space-x-2">
-            <span className="text-sm text-gray-500">Preferred:</span>
-            <span className="text-lg">{getChannelIcon(patient.preferredChannel)}</span>
-          </div>
-          
-          <div className="flex space-x-2">
-            {!patient.reminderSent && (
-              <Button size="sm" className="bg-blue-600 hover:bg-blue-700" onClick={sendReminder}>
-                <MessageCircle className="w-4 h-4 mr-2" />
-                Send Reminder
-              </Button>
-            )}
-            
-            <Button size="sm" variant="outline" onClick={handleCall}>
-              <Phone className="w-4 h-4 mr-2" />
-              Call
-            </Button>
-          </div>
-          
-          {patient.reminderSent && (
-            <div className="flex items-center space-x-1 text-green-600 text-xs">
-              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-              <span>Reminder sent</span>
+  return (
+    <>
+      <div className="bg-gradient-to-r from-white to-gray-50 rounded-lg border border-gray-200 p-4 sm:p-6 hover:shadow-md transition-all duration-300 cursor-pointer"
+           onClick={handleProfileClick}>
+        <div className="flex flex-col sm:flex-row items-start justify-between space-y-4 sm:space-y-0">
+          <div className="flex items-start space-x-4 flex-1">
+            <div className="w-12 h-12 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full flex items-center justify-center flex-shrink-0">
+              <User className="w-6 h-6 text-white" />
             </div>
-          )}
+            
+            <div className="flex-1 min-w-0">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-3 mb-2">
+                <h3 className="text-lg font-semibold text-gray-800 truncate">{patient.name}</h3>
+                <Badge className={`text-xs ${getRiskColor(patient.riskLevel)} w-fit`}>
+                  {patient.riskLevel} risk
+                </Badge>
+              </div>
+              
+              <p className="text-gray-600 mb-1 text-sm sm:text-base">{patient.condition}</p>
+              {patient.phone && (
+                <p className="text-gray-500 text-sm mb-3">📞 {patient.phone}</p>
+              )}
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4 text-sm">
+                <div className="flex items-center space-x-2">
+                  <Calendar className="w-4 h-4 text-gray-400 flex-shrink-0" />
+                  <span className="text-gray-600 truncate">Last visit: {patient.lastVisit}</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Clock className="w-4 h-4 text-gray-400 flex-shrink-0" />
+                  <span className="text-gray-600 truncate">Next: {patient.nextAppointment}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col items-end space-y-3 w-full sm:w-auto"
+               onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center space-x-2">
+              <span className="text-sm text-gray-500">Preferred:</span>
+              <span className="text-lg">{getChannelIcon(patient.preferredChannel)}</span>
+            </div>
+            
+            <div className="flex space-x-2 w-full sm:w-auto">
+              {!patient.reminderSent && (
+                <Button size="sm" className="bg-blue-600 hover:bg-blue-700 flex-1 sm:flex-none" onClick={sendReminder}>
+                  <MessageCircle className="w-4 h-4 mr-1 sm:mr-2" />
+                  <span className="hidden sm:inline">Send</span> Reminder
+                </Button>
+              )}
+              
+              <Button size="sm" variant="outline" onClick={handleCall} className="flex-1 sm:flex-none">
+                <Phone className="w-4 h-4 mr-1 sm:mr-2" />
+                Call
+              </Button>
+            </div>
+            
+            {patient.reminderSent && (
+              <div className="flex items-center space-x-1 text-green-600 text-xs">
+                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                <span>Reminder sent</span>
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+
+      {showMedicalHistory && (
+        <PatientMedicalHistory 
+          patient={patient} 
+          onClose={() => setShowMedicalHistory(false)} 
+        />
+      )}
+    </>
   );
 };
