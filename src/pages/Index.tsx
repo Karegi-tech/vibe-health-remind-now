@@ -8,7 +8,7 @@ import { LoginScreen } from '@/components/LoginScreen';
 import { ReminderSystem } from '@/components/ReminderSystem';
 import { PatientTracking } from '@/components/PatientTracking';
 import { Button } from '@/components/ui/button';
-import { LogOut, Heart, Users, Brain, MessageCircle } from 'lucide-react';
+import { LogOut, Heart, Users, Brain, MessageCircle, Mail, Phone, MapPin, Shield, Clock, Award } from 'lucide-react';
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -29,7 +29,7 @@ const Index = () => {
   if (!user) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50">
-        {/* Hero Section - Restored Original Design */}
+        {/* Hero Section */}
         <div className="relative overflow-hidden">
           <div className="container mx-auto px-4 py-16">
             <div className="text-center space-y-8">
@@ -84,6 +84,161 @@ const Index = () => {
             </div>
           </div>
         </div>
+
+        {/* About Section */}
+        <section id="about" className="py-20 bg-white">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">About Link2Care</h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                We're revolutionizing healthcare follow-up through AI-powered technology that bridges the gap 
+                between doctors and patients, ensuring no one falls through the cracks.
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              <div className="space-y-6">
+                <div className="flex items-start space-x-4">
+                  <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Shield className="w-6 h-6 text-blue-600" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold text-gray-800 mb-2">Secure & Compliant</h3>
+                    <p className="text-gray-600">Built with healthcare security standards in mind, ensuring patient data protection and privacy compliance.</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start space-x-4">
+                  <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Clock className="w-6 h-6 text-green-600" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold text-gray-800 mb-2">24/7 Monitoring</h3>
+                    <p className="text-gray-600">Continuous patient monitoring and intelligent reminder systems that work around the clock.</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start space-x-4">
+                  <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Award className="w-6 h-6 text-purple-600" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold text-gray-800 mb-2">Proven Results</h3>
+                    <p className="text-gray-600">Improved patient outcomes through better follow-up compliance and early intervention capabilities.</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="relative">
+                <img 
+                  src="https://images.pexels.com/photos/4173251/pexels-photo-4173251.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                  alt="Healthcare team collaboration"
+                  className="rounded-2xl shadow-2xl w-full h-96 object-cover"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Contact Section */}
+        <section id="contact" className="py-20 bg-gray-50">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Get In Touch</h2>
+              <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                Ready to transform your healthcare follow-up process? Contact us to learn more about Link2Care.
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-2 gap-12">
+              <div className="space-y-8">
+                <div className="flex items-center space-x-4">
+                  <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                    <Mail className="w-6 h-6 text-blue-600" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-800">Email Us</h3>
+                    <a href="mailto:contact@link2care.com" className="text-blue-600 hover:text-blue-700 transition-colors">
+                      contact@link2care.com
+                    </a>
+                  </div>
+                </div>
+                
+                <div className="flex items-center space-x-4">
+                  <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                    <Phone className="w-6 h-6 text-green-600" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-800">Call Us</h3>
+                    <a href="tel:+254700000000" className="text-green-600 hover:text-green-700 transition-colors">
+                      +254 700 000 000
+                    </a>
+                  </div>
+                </div>
+                
+                <div className="flex items-center space-x-4">
+                  <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                    <MapPin className="w-6 h-6 text-purple-600" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-800">Visit Us</h3>
+                    <p className="text-gray-600">Nairobi, Kenya<br />Technology Hub District</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="bg-white rounded-2xl p-8 shadow-lg">
+                <form className="space-y-6">
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                      Full Name
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="Enter your full name"
+                      required
+                    />
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                      Email Address
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="Enter your email"
+                      required
+                    />
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+                      Message
+                    </label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      rows={4}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="Tell us about your healthcare needs"
+                      required
+                    ></textarea>
+                  </div>
+                  
+                  <Button type="submit" className="w-full bg-gradient-to-r from-blue-600 to-green-600 hover:from-blue-700 hover:to-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200">
+                    Send Message
+                  </Button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
         
         <LoginScreen onLogin={handleLogin} />
       </div>
