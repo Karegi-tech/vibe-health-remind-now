@@ -8,7 +8,7 @@ import { LoginScreen } from '@/components/LoginScreen';
 import { ReminderSystem } from '@/components/ReminderSystem';
 import { PatientTracking } from '@/components/PatientTracking';
 import { Button } from '@/components/ui/button';
-import { LogOut, Heart, Users, Brain, MessageCircle } from 'lucide-react';
+import { LogOut } from 'lucide-react';
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -27,67 +27,7 @@ const Index = () => {
   };
 
   if (!user) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50">
-        {/* Hero Section */}
-        <div className="relative overflow-hidden">
-          <div className="container mx-auto px-4 py-16">
-            <div className="text-center space-y-8">
-              <div className="space-y-4">
-                <h1 className="text-4xl md:text-6xl font-bold text-gray-800 leading-tight">
-                  Link2Care
-                  <span className="text-gradient bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent"> Healthcare</span>
-                </h1>
-                <p className="text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
-                  Revolutionary AI-powered healthcare follow-up system connecting doctors and patients 
-                  for better health outcomes through smart reminders and intelligent tracking.
-                </p>
-              </div>
-              
-              <div className="relative mx-auto max-w-4xl">
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                  <img 
-                    src="https://images.pexels.com/photos/263402/pexels-photo-263402.jpeg?auto=compress&cs=tinysrgb&w=1200" 
-                    alt="Healthcare professional using technology for patient care"
-                    className="w-full h-96 object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-blue-900/20 to-transparent"></div>
-                </div>
-              </div>
-              
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
-                <div className="flex flex-col items-center space-y-2">
-                  <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                    <MessageCircle className="w-6 h-6 text-blue-600" />
-                  </div>
-                  <span className="text-gray-700 font-medium text-sm">Smart Reminders</span>
-                </div>
-                <div className="flex flex-col items-center space-y-2">
-                  <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                    <Brain className="w-6 h-6 text-green-600" />
-                  </div>
-                  <span className="text-gray-700 font-medium text-sm">AI Insights</span>
-                </div>
-                <div className="flex flex-col items-center space-y-2">
-                  <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                    <Users className="w-6 h-6 text-purple-600" />
-                  </div>
-                  <span className="text-gray-700 font-medium text-sm">Patient Tracking</span>
-                </div>
-                <div className="flex flex-col items-center space-y-2">
-                  <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
-                    <Heart className="w-6 h-6 text-red-600" />
-                  </div>
-                  <span className="text-gray-700 font-medium text-sm">Better Outcomes</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <LoginScreen onLogin={handleLogin} />
-      </div>
-    );
+    return <LoginScreen onLogin={handleLogin} />;
   }
 
   const allPatients = [
