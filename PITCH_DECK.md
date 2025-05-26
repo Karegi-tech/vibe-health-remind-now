@@ -11,7 +11,7 @@ https://www.canva.com/design/DAGodTIc_w0/IOkUQvKy3oXHHFGKcS6A_w/edit?utm_content
 ## Revolutionizing Healthcare Follow-Up in Africa
 **Connecting Healthcare, Transforming Lives**
 
-*Demo: [link2care.lovable.app](https://link2care.lovable.app)*
+*Demo: https://vibe-health-remind-now.lovable.app/
 
 ---
 
@@ -276,7 +276,7 @@ https://www.canva.com/design/DAGodTIc_w0/IOkUQvKy3oXHHFGKcS6A_w/edit?utm_content
 - **Government Health Systems**: Kenya Health Information System integration
 
 ### Demo Credentials:
-- **Website**: [link2care.lovable.app](https://link2care.lovable.app)
+- **Website**: [link2care.lovable.app](https://vibe-health-remind-now.lovable.app/)
 - **Username**: demo
 - **Password**: demo
 - **User Types**: Doctor or Patient view available
