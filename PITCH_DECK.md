@@ -1,6 +1,8 @@
 
 # Link2Care Pitch Deck
 ## Smart Healthcare Follow-Up System for Africa
+**BELOW IS THE LINK TO MY PITCH DECK PRESENTATION**
+https://www.canva.com/design/DAGodTIc_w0/IOkUQvKy3oXHHFGKcS6A_w/edit?utm_content=DAGodTIc_w0&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
 
 ---
 
